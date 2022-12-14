@@ -1,4 +1,4 @@
-import fs from 'fs'
+import fs from "fs";
 
 const testInput = `
 1000
@@ -15,27 +15,46 @@ const testInput = `
 9000
 
 10000
-`
+`;
+
+const sum = (acc: number, elem: number) => acc + elem;
 
 function solve1(input: string) {
   const values = input
     .trim()
-    .split('\n\n')
-    .map(entry => {
+    .split("\n\n")
+    .map((entry) => {
       return entry
-        .split('\n')
-        .map(x => parseInt(x, 10))
-        .reduce((acc, elem) => acc + elem)
+        .split("\n")
+        .map((x) => parseInt(x, 10))
+        .reduce(sum);
     })
-    .reduce((acc, elem) => elem > acc ? elem : acc)
+    .reduce((acc, elem) => (elem > acc ? elem : acc));
 
-  return values
+  return values;
+}
+
+function solve2(input: string) {
+  const values = input
+    .trim()
+    .split("\n\n")
+    .map((entry) => {
+      return entry
+        .split("\n")
+        .map((x) => parseInt(x, 10))
+        .reduce(sum);
+    })
+    .sort((a, b) => b - a)
+    .slice(0, 3)
+    .reduce(sum);
+
+  return values;
 }
 
 function main() {
-  const input = fs.readFileSync('./day01.in', 'utf8')
-  const res = solve1(input)
-  console.log(res)
+  const input = fs.readFileSync("./foo.in", "utf8");
+  console.log(solve1(input));
+  console.log(solve2(input));
 }
 
-main()
+main();
